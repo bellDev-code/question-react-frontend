@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-const Container = styled.div`
-  background-color: teal;
-`;
+import { HashRouter as Router } from "react-router-dom";
+import AppRouter from "./components/Routes";
 
 const App = () => {
-  return <Container>hello world!</Container>;
+  // let isLoginState = false;
+  const [isLogin, setIsLogin] = useState(false);
+
+  // Will mount
+  useEffect(() => {
+    const isLoginItem = localStorage.getItem("isLogin");
+    if (isLoginItem === "true") {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
+
+  return (
+    <Router basename="/">
+      <AppRouter isLogin={isLogin} />
+    </Router>
+  );
 };
 
 export default App;
