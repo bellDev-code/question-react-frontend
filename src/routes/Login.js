@@ -7,7 +7,7 @@ const Wrapper = styled.div``;
 const Login = () => {
   return (
     <Container>
-      <Wrapper>Login</Wrapper>
+      <Wrapper>로그인 페이지</Wrapper>
     </Container>
   );
 };
