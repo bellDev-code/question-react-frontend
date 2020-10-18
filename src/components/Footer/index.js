@@ -4,12 +4,12 @@ import styled from "styled-components";
 const Container = styled.div``;
 const Wrapper = styled.div``;
 
-const Home = () => {
+const Footer = () => {
   return (
     <Container>
-      <Wrapper>Home</Wrapper>
+      <Wrapper>푸터</Wrapper>
     </Container>
   );
 };
 
-export default Home;
+export default Footer;
