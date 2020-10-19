@@ -1,8 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div``;
-const Wrapper = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Wrapper = styled.div`
+  width: 75%;
+  display: flex;
+`;
 
 const Login = () => {
   return (

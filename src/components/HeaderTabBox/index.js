@@ -5,8 +5,9 @@ const Container = styled.div`
   padding: 15px;
 `;
 const Wrapper = styled.div`
-  font-size: 23px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.8;
 `;
 
 const HeaderTabBox = ({ name }) => {

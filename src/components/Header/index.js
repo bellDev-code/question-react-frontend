@@ -40,11 +40,7 @@ const Header = () => {
     },
     {
       id: "c",
-      name: "커플일기장",
-    },
-    {
-      id: "d",
-      name: "일정",
+      name: "심심풀이 VS게임",
     },
   ];
 
