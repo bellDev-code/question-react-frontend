@@ -1,6 +1,6 @@
 "use-strict";
 
-const array = ["a", "b", "c", "d"];
+// const array = ["a", "b", "c", "d"];
 
 // // 1. 'a, b, c, d' 형태의 문자열 만들기
 
@@ -67,3 +67,30 @@ const array = ["a", "b", "c", "d"];
 // };
 
 // newYoonYear(1900);
+
+// 5.
+// const startArray = ["*", "**", "***", "****", "*****"];
+
+// const starFunc = () => {
+//   for (let i = 0; i < 5; i++) {
+//     const star = startArray[i];
+//     console.log(star);
+//   }
+//   for (let i = 3; i >= 0; i--) {
+//     const star = startArray[i];
+//     console.log(star);
+//   }
+// };
+
+// starFunc();
+
+// 6.두 배열을 인수로 받아 비교하여
+// 서로 포함하는 값만 추출한 배열을
+// 반환하는 함수 만들기
+
+const array = [2, 4, 6, 8];
+const array2 = [4, 8, 12, 16];
+
+const arrayFunc = () => {};
+
+arrayFunc();
