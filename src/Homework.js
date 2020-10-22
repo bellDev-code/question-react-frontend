@@ -88,9 +88,9 @@
 // 서로 포함하는 값만 추출한 배열을
 // 반환하는 함수 만들기
 
-const array = [2, 4, 6, 8];
-const array2 = [4, 8, 12, 16];
+// const array = [0, 1, 2, 3];
+// const array2 = [0, 2, 6, 8];
 
-const arrayFunc = () => {};
+// const arrayFunc = () => {};
 
-arrayFunc();
+// arrayFunc();
