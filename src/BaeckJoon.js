@@ -1,14 +1,10 @@
-// 1330번 문제
-// function comparFunc(a, b) {
-//   if (a < b) {
-//     console.log("<");
-//   }
-//   if (a > b) {
-//     console.log(">");
-//   }
-//   if (a === b) {
-//     console.log("===");
-//   }
+// 출력하기 예제
+// for (let i = 0; i < 2; i++) {
+//   console.log("강한친구 대한육군");
 // }
 
-// comparFunc(10, 2);
+// 고양이
+console.log(`\\    /\\
+)  ( ')
+(  /  )
+\\(__)|`);
