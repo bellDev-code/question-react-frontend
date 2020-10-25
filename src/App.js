@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { HashRouter as Router } from "react-router-dom";
 import AppRouter from "./components/Routes";
 import useWindowSize from "./hooks/useWindowSize";
 import usePlatform from "./hooks/usePlatform";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import GlobalStyles from "./components/GlobalStyles";
+
+const BodyContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
 
 const App = () => {
   // let isLoginState = false;
@@ -12,6 +21,7 @@ const App = () => {
 
   const screenSize = useWindowSize();
   const platform = usePlatform(screenSize);
+
   // console.log(platform); => 데스크탑, 모바일 체크하는 함수
 
   // Will mount
@@ -27,8 +37,11 @@ const App = () => {
   return (
     <Router basename="/">
       <Header />
-      <AppRouter isLogin={isLogin} platform={platform} />
+      <BodyContainer>
+        <AppRouter isLogin={isLogin} platform={platform} />
+      </BodyContainer>
       <Footer />
+      <GlobalStyles />
     </Router>
   );
 };

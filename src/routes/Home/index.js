@@ -9,7 +9,7 @@ const Wrapper = styled.div``;
 
 const Home = (props) => {
   const { platform } = props;
-  console.log(platform);
+  // console.log(platform);
   return (
     <PlatformController
       platform={platform}

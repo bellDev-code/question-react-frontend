@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import HeaderTabBox from "../HeaderTabBox";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -52,16 +53,16 @@ const SignText = styled.div`
 const Header = () => {
   const tabs = [
     {
-      id: "a",
       name: "백문백답",
+      routeName: "/question",
     },
     {
-      id: "b",
       name: "밸런스게임",
+      routeName: "/",
     },
     {
-      id: "c",
       name: "심심풀이 VS게임",
+      routeName: "/",
     },
   ];
 
@@ -74,8 +75,12 @@ const Header = () => {
           </TitleWrapper>
         </Wrapper>
         <Wrapper>
-          {tabs.map((tab) => {
-            return <HeaderTabBox name={tab.name} />;
+          {tabs.map((tab, index) => {
+            return (
+              <Link to={tab.routeName} key={index}>
+                <HeaderTabBox name={tab.name} />
+              </Link>
+            );
           })}
         </Wrapper>
         <Wrapper>

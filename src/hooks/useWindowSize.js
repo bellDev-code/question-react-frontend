@@ -7,6 +7,7 @@ const useWindowSize = () => {
     width: isClient ? window.innerWidth : undefined,
     height: isClient ? window.innerHeight : undefined,
   });
+
   useEffect(() => {
     const getSize = () => {
       return {

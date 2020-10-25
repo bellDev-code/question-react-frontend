@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../routes/Home";
 import Login from "../routes/Login";
+import Question from "../routes/Question";
 
 const IsloginRouter = (props) => {
   return (
@@ -17,6 +18,10 @@ const IslogoutRouter = (props) => {
     <Switch>
       <Route exact path="/" render={(routeProps) => <Home {...props} />} />
       <Route path="/login" render={(routeProps) => <Login {...props} />} />
+      <Route
+        path="/Question"
+        render={(routeProps) => <Question {...props} />}
+      />
     </Switch>
   );
 };
