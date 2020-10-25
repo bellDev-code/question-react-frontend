@@ -84,6 +84,16 @@
 
 // starFunc();
 
+// function starFunc(len) {
+//   const star = "*";
+//   for (let i = 0; i <= len; i++) {
+//     console.log(star.repeat(i));
+//   }
+//   for (let i = len - 1; i > 0; i--) {
+//     console.log(star.repeat(i));
+//   }
+// }
+// starFunc(5);
 // 6.두 배열을 인수로 받아 비교하여
 // 서로 포함하는 값만 추출한 배열을
 // 반환하는 함수 만들기
