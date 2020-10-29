@@ -16,17 +16,44 @@ const PagingbuttonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 20px 0;
 `;
 
 const PagingButton = styled.div`
   padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fbbc05;
+  border-radius: 15px;
+  margin: 0px 15px;
+  cursor: pointer;
 `;
 
 const DisablePagingButton = styled.div`
-  background-color: #ddd;
+  cursor: pointer;
+  background-color: #f7d780;
+  padding: 16px;
+  border: 1px solid #fbbc05;
+  border-radius: 15px;
+  color: #fff;
+  font-weight: 600;
+  margin: 0px 15px;
 `;
 
-const SendButton = styled.div``;
+const SendButton = styled.div`
+  cursor: pointer;
+  padding: 16px;
+  background-color: #fbbc05;
+  width: 100%;
+  max-width: 250px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+`;
 
 const DeskQuestion = ({ questionList }) => {
   const pageLimit = 10;
@@ -90,9 +117,11 @@ const DeskQuestion = ({ questionList }) => {
           <PagingButton onClick={nextOnClick}>다음</PagingButton>
         )}
       </PagingbuttonWrapper>
-      {currentPage === maxPage ? (
-        <SendButton onClick={sendOnClick}>제출</SendButton>
-      ) : null}
+      <PagingbuttonWrapper>
+        {currentPage === maxPage ? (
+          <SendButton onClick={sendOnClick}>제출</SendButton>
+        ) : null}
+      </PagingbuttonWrapper>
     </Container>
   );
 };
