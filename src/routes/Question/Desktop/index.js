@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AnswerInputRow from "../../../components/AnswerInputRow";
+import axios from "axios";
 
 const Container = styled.div`
   width: 75%;
@@ -75,10 +76,13 @@ const DeskQuestion = ({ questionList }) => {
     }
   };
 
-  const sendOnClick = () => {
-    listData.map((e) => {
-      console.log(e);
+  const sendOnClick = async () => {
+    const { data } = await axios({
+      method: "get",
+      url: "http://localhost:4000/api/users",
+      headers: { "Access-Control-Allow-Origin": "*" },
     });
+    console.log(data);
   };
 
   useEffect(() => {
