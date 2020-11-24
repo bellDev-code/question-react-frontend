@@ -86,7 +86,9 @@ const Header = () => {
         <Wrapper>
           <LoginWrapper>
             <LoginText>로그인</LoginText>
-            <SignText>회원가입</SignText>
+            <Link to={"/join"}>
+              <SignText>회원가입</SignText>
+            </Link>
           </LoginWrapper>
         </Wrapper>
       </ContainerWrapper>
