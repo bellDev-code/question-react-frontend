@@ -7,7 +7,7 @@ import client from "./apollo/client";
 const Index = () => {
   return (
     <ApolloProvider client={client}>
-      <App />;
+      <App />
     </ApolloProvider>
   );
 };

@@ -1,12 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import PlatformController from "../../components/PlatformController";
 import useInput from "../../hooks/useInput";
 import DeskQuestion from "./Desktop";
 import MobQuestion from "./Mobile";
-
-const Container = styled.div``;
-const Wrapper = styled.div``;
 
 const Question = (props) => {
   const questionList = [
