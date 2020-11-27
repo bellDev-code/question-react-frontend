@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import HeaderTabBox from "../HeaderTabBox";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -12,9 +11,10 @@ const Container = styled.div`
 const ContainerWrapper = styled.div`
   width: 75%;
   display: flex;
+  margin-top: 2vh;
 `;
 const Wrapper = styled.div`
-  width: 33%;
+  width: 50%;
   display: flex;
   &:last-child {
     justify-content: flex-end;
@@ -51,37 +51,15 @@ const SignText = styled.div`
 `;
 
 const Header = () => {
-  const tabs = [
-    {
-      name: "백문백답",
-      routeName: "/question",
-    },
-    {
-      name: "밸런스게임",
-      routeName: "/",
-    },
-    {
-      name: "심심풀이 VS게임",
-      routeName: "/",
-    },
-  ];
-
   return (
     <Container>
       <ContainerWrapper>
         <Wrapper>
           <TitleWrapper>
-            <TitleText>방구석 커플 문답</TitleText>
+            <Link to={"/"}>
+              <TitleText>방구석 커플 문답</TitleText>
+            </Link>
           </TitleWrapper>
-        </Wrapper>
-        <Wrapper>
-          {tabs.map((tab, index) => {
-            return (
-              <Link to={tab.routeName} key={index}>
-                <HeaderTabBox name={tab.name} />
-              </Link>
-            );
-          })}
         </Wrapper>
         <Wrapper>
           <LoginWrapper>

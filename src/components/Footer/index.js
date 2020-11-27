@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   border-top: solid 1px #d3d3d3;
   flex-direction: column;
-  padding: 50px 0;
+  padding: 20px 0;
 `;
 
 const FooterText = styled.div`
