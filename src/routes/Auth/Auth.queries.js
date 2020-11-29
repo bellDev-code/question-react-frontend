@@ -23,3 +23,12 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const START_EMAIL_VERIFY = gql`
+  mutation startEmailVerify($email: String!) {
+    startEmailVerify(email: $email) {
+      ok
+      error
+    }
+  }
+`;

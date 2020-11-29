@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ADD_USER } from "./Auth.queries";
+import { ADD_USER, START_EMAIL_VERIFY } from "./Auth.queries";
 
 const Container = styled.div`
   width: 100%;
@@ -39,8 +39,13 @@ const Join = () => {
   const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
   const [password, setPassword] = useState("");
+  const [isEmail, setIsEmail] = useState(false);
+  const [verifyCode, setVerifyCode] = useState("");
 
   const [addUserMutation] = useMutation(ADD_USER);
+  const [startEmailVerify] = useMutation(START_EMAIL_VERIFY, {
+    fetchPolicy: "no-cache",
+  });
 
   const joinOnClick = async () => {
     try {
@@ -56,6 +61,22 @@ const Join = () => {
       console.log(data);
     } catch (error) {}
   };
+
+  const emailSendOnClick = async () => {
+    try {
+      const { data } = await startEmailVerify({
+        variables: {
+          email: email,
+        },
+      });
+      if (data && data.startEmailVerify && data.startEmailVerify.ok) {
+        setIsEmail(true);
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <Wrapper>
@@ -70,6 +91,17 @@ const Join = () => {
               setEmail(event.target.value);
             }}
           />
+          <button onClick={emailSendOnClick}>인증하기</button>
+          {isEmail && (
+            <InputWrapper>
+              인증번호
+              <Input
+                onChange={(event) => {
+                  setVerifyCode(event.target.value);
+                }}
+              />
+            </InputWrapper>
+          )}
         </InputWrapper>
         <InputWrapper>
           닉네임

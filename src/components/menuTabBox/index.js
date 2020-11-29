@@ -21,15 +21,19 @@ const Text = styled.div`
   line-height: 15px;
 `;
 
-const MenuTabBox = ({ name, text }) => {
-  return (
-    <Container>
-      <Wrapper>
-        {name}
-        <Text>{text}</Text>
-      </Wrapper>
-    </Container>
-  );
+const MenuTabBox = ({ platform, name, text }) => {
+  if (platform === "desktop") {
+    return (
+      <Container>
+        <Wrapper>
+          {name}
+          <Text>{text}</Text>
+        </Wrapper>
+      </Container>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default MenuTabBox;

@@ -63,7 +63,11 @@ const MobHome = () => {
           {menus.map((menus, index) => {
             return (
               <Link to={menus.routeName} key={index}>
-                <MenuTabBox name={menus.name} text={menus.text} />
+                <MenuTabBox
+                  platform="mobile"
+                  name={menus.name}
+                  text={menus.text}
+                />
               </Link>
             );
           })}
