@@ -27,12 +27,24 @@ const JoinText = styled.div`
 
 const InputWrapper = styled.div`
   padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
 
-const Input = styled.input``;
+const Input = styled.input`
+  padding: 5px;
+  width: 25%;
+`;
 
 const JoinButton = styled.button`
   margin: 20px 0;
+`;
+
+const EmailSendButton = styled.div`
+  cursor: pointer;
+  padding: 0 5px;
 `;
 
 const Join = () => {
@@ -77,6 +89,8 @@ const Join = () => {
       console.log(error);
     }
   };
+
+  const verifyEmailClick = async () => {};
   return (
     <Container>
       <Wrapper>
@@ -85,35 +99,36 @@ const Join = () => {
       </Wrapper>
       <Wrapper>
         <InputWrapper>
-          이메일
           <Input
+            placeholder="이메일"
             onChange={(event) => {
               setEmail(event.target.value);
             }}
           />
-          <button onClick={emailSendOnClick}>인증하기</button>
-          {isEmail && (
-            <InputWrapper>
-              인증번호
-              <Input
-                onChange={(event) => {
-                  setVerifyCode(event.target.value);
-                }}
-              />
-            </InputWrapper>
-          )}
+          <EmailSendButton onClick={emailSendOnClick}>인증하기</EmailSendButton>
         </InputWrapper>
+        {isEmail && (
+          <InputWrapper>
+            <Input
+              placeholder="인증번호를 입력해주세요"
+              onChange={(event) => {
+                setVerifyCode(event.target.value);
+              }}
+            />
+            <button>확인</button>
+          </InputWrapper>
+        )}
         <InputWrapper>
-          닉네임
           <Input
+            placeholder="닉네임"
             onChange={(event) => {
               setNickName(event.target.value);
             }}
           />
         </InputWrapper>
         <InputWrapper>
-          비밀번호
           <Input
+            placeholder="비밀번호"
             onChange={(event) => {
               setPassword(event.target.value);
             }}
