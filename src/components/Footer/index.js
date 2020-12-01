@@ -24,15 +24,37 @@ const FooterEmail = styled.div`
   color: #c0c0c0;
 `;
 
-const Footer = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <FooterText>created by bellDev-code</FooterText>
-        <FooterEmail>fujifilm0517@naver.com</FooterEmail>
-      </Wrapper>
-    </Container>
-  );
+const MobFooterText = styled.div`
+  margin: 5px 0;
+  font-size: 5px;
+  color: #c0c0c0;
+`;
+
+const MobFooterEmail = styled.div`
+  font-size: 5px;
+  color: #c0c0c0;
+`;
+
+const Footer = ({ platform }) => {
+  if (platform === "desktop") {
+    return (
+      <Container>
+        <Wrapper>
+          <FooterText>created by bellDev-code</FooterText>
+          <FooterEmail>fujifilm0517@naver.com</FooterEmail>
+        </Wrapper>
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <Wrapper>
+          <MobFooterText>created by bellDev-code</MobFooterText>
+          <MobFooterEmail>fujifilm0517@naver.com</MobFooterEmail>
+        </Wrapper>
+      </Container>
+    );
+  }
 };
 
 export default Footer;

@@ -7,7 +7,7 @@ const Container = styled.div`
   width: 75%;
 `;
 const Wrapper = styled.div`
-  height: 60vh;
+  height: 50vh;
 `;
 
 const BodyArea = styled.div`
@@ -15,21 +15,12 @@ const BodyArea = styled.div`
 `;
 
 const BodyTitle = styled.div`
-  font-size: 30px;
-  margin-top: 20vh;
-`;
-
-const BodySubTitle = styled.div`
-  font-size: 25px;
-  margin-top: 5vh;
-  line-height: 33px;
+  font-size: 23px;
+  margin-top: 10vh;
 `;
 
 const MenuArea = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5vh;
+  margin: 13vh 5vh 0 5vh;
 `;
 
 const MobHome = () => {
@@ -55,9 +46,6 @@ const MobHome = () => {
       <Wrapper>
         <BodyArea>
           <BodyTitle>방구석에서 놀아보자!</BodyTitle>
-          <BodySubTitle>
-            커플이 함께하는 백문백답, 밸런스게임, VS게임
-          </BodySubTitle>
         </BodyArea>
         <MenuArea>
           {menus.map((menus, index) => {

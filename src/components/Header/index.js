@@ -50,28 +50,78 @@ const SignText = styled.div`
   opacity: 0.5;
 `;
 
-const Header = () => {
-  return (
-    <Container>
-      <ContainerWrapper>
-        <Wrapper>
-          <TitleWrapper>
-            <Link to={"/"}>
-              <TitleText>방구석 커플 문답</TitleText>
-            </Link>
-          </TitleWrapper>
-        </Wrapper>
-        <Wrapper>
-          <LoginWrapper>
-            <LoginText>로그인</LoginText>
-            <Link to={"/join"}>
-              <SignText>회원가입</SignText>
-            </Link>
-          </LoginWrapper>
-        </Wrapper>
-      </ContainerWrapper>
-    </Container>
-  );
+const MobTitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MobTitleText = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+const MobLoginWrapper = styled.div`
+  display: flex;
+  font-size: 13px;
+`;
+
+const MobLoginText = styled.div`
+  padding: 5px;
+  opacity: 0.5;
+`;
+
+const MobSignText = styled.div`
+  padding: 5px;
+  opacity: 0.5;
+`;
+
+const Header = ({ platform }) => {
+  if (platform === "desktop") {
+    return (
+      <Container>
+        <ContainerWrapper>
+          <Wrapper>
+            <TitleWrapper>
+              <Link to={"/"}>
+                <TitleText>방구석 커플 문답</TitleText>
+              </Link>
+            </TitleWrapper>
+          </Wrapper>
+          <Wrapper>
+            <LoginWrapper>
+              <LoginText>로그인</LoginText>
+              <Link to={"/join"}>
+                <SignText>회원가입</SignText>
+              </Link>
+            </LoginWrapper>
+          </Wrapper>
+        </ContainerWrapper>
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <ContainerWrapper>
+          <Wrapper>
+            <MobTitleWrapper>
+              <Link to={"/"}>
+                <MobTitleText>방구석 커플 문답</MobTitleText>
+              </Link>
+            </MobTitleWrapper>
+          </Wrapper>
+          <Wrapper>
+            <MobLoginWrapper>
+              <MobLoginText>로그인</MobLoginText>
+              <Link to={"/join"}>
+                <MobSignText>회원가입</MobSignText>
+              </Link>
+            </MobLoginWrapper>
+          </Wrapper>
+        </ContainerWrapper>
+      </Container>
+    );
+  }
 };
 
 export default Header;

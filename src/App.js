@@ -36,11 +36,11 @@ const App = () => {
 
   return (
     <Router basename="/">
-      <Header />
+      <Header platform={platform} />
       <BodyContainer>
         <AppRouter isLogin={isLogin} platform={platform} />
       </BodyContainer>
-      <Footer />
+      <Footer platform={platform} />
       <GlobalStyles />
     </Router>
   );

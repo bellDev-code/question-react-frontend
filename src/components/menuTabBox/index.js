@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
-  padding: 10px;
-`;
+const Container = styled.div``;
+
 const Wrapper = styled.div`
   font-size: 15px;
+  margin: 0 10px;
   padding: 20px;
   border-radius: 10px;
   width: 17vh;
@@ -21,6 +21,21 @@ const Text = styled.div`
   line-height: 15px;
 `;
 
+const MobContainer = styled.div``;
+
+const MobWrapper = styled.div`
+  font-size: 15px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: 1px solid #fbbc05;
+  border-radius: 15px;
+  background-color: #fbbc05;
+  color: #fff;
+  text-align: center;
+`;
+
 const MenuTabBox = ({ platform, name, text }) => {
   if (platform === "desktop") {
     return (
@@ -32,7 +47,11 @@ const MenuTabBox = ({ platform, name, text }) => {
       </Container>
     );
   } else {
-    return null;
+    return (
+      <MobContainer>
+        <MobWrapper>{name}</MobWrapper>
+      </MobContainer>
+    );
   }
 };
 
