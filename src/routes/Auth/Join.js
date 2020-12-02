@@ -12,8 +12,13 @@ const Container = styled.div`
 `;
 const Wrapper = styled.div`
   width: 75%;
-  text-align: center;
   padding: 50px 0 20px 0;
+  text-align: center;
+`;
+
+const FormWrapper = styled.div`
+  width: 50%;
+  text-align: center;
 `;
 
 const JoinTitle = styled.div`
@@ -28,25 +33,53 @@ const JoinText = styled.div`
 const InputWrapper = styled.div`
   padding: 15px 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 `;
 
 const Input = styled.input`
   padding: 5px;
-  width: 25%;
+  width: 100%;
 `;
 
-const JoinButton = styled.button`
+const JoinButton = styled.div`
+  cursor: pointer;
   margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #f7d780;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
 `;
 
 const EmailSendButton = styled.div`
   cursor: pointer;
   padding: 0 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #f7d780;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-left: 8px;
+  width: 25%;
 `;
 
+const Submitbutton = styled.div`
+  cursor: pointer;
+  padding: 0 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #f7d780;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-left: 8px;
+  width: 25%;
+`;
 const Join = () => {
   const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
@@ -97,7 +130,7 @@ const Join = () => {
         <JoinTitle>회원가입</JoinTitle>
         <JoinText>회원가입을 통해 서로의 문답을 공유해봐요!</JoinText>
       </Wrapper>
-      <Wrapper>
+      <FormWrapper>
         <InputWrapper>
           <Input
             placeholder="이메일"
@@ -115,7 +148,7 @@ const Join = () => {
                 setVerifyCode(event.target.value);
               }}
             />
-            <button>확인</button>
+            <Submitbutton>확인</Submitbutton>
           </InputWrapper>
         )}
         <InputWrapper>
@@ -135,7 +168,7 @@ const Join = () => {
           />
         </InputWrapper>
         <JoinButton onClick={joinOnClick}>회원가입</JoinButton>
-      </Wrapper>
+      </FormWrapper>
     </Container>
   );
 };
