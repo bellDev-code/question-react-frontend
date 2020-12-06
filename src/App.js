@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { HashRouter as Router } from "react-router-dom";
+import { HashRouter as Router, useHistory } from "react-router-dom";
 import AppRouter from "./components/Routes";
 import useWindowSize from "./hooks/useWindowSize";
 import usePlatform from "./hooks/usePlatform";
@@ -26,8 +26,8 @@ const App = () => {
 
   // Will mount
   useEffect(() => {
-    const isLoginItem = localStorage.getItem("isLogin");
-    if (isLoginItem === "true") {
+    const token = localStorage.getItem("X-JWT");
+    if (token) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <Router basename="/">
-      <Header platform={platform} />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} platform={platform} />
       <BodyContainer>
         <AppRouter isLogin={isLogin} platform={platform} />
       </BodyContainer>

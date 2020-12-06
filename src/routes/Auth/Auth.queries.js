@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+export const LOGIN_USER = gql`
+  mutation loginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      ok
+      error
+      token
+    }
+  }
+`;
+
 export const ADD_USER = gql`
   mutation addUser(
     $nickName: String!
@@ -17,9 +27,7 @@ export const ADD_USER = gql`
     ) {
       ok
       error
-      user {
-        id
-      }
+      token
     }
   }
 `;
@@ -27,6 +35,15 @@ export const ADD_USER = gql`
 export const START_EMAIL_VERIFY = gql`
   mutation startEmailVerify($email: String!) {
     startEmailVerify(email: $email) {
+      ok
+      error
+    }
+  }
+`;
+
+export const COMPLETE_EMAIL_VERYFY = gql`
+  mutation completeEmailVerify($email: String!, $code: String!) {
+    completeEmailVerify(email: $email, code: $code) {
       ok
       error
     }

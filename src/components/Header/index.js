@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -76,7 +76,14 @@ const MobSignText = styled.div`
   opacity: 0.5;
 `;
 
-const Header = ({ platform }) => {
+const Header = ({ isLogin, setIsLogin, platform }) => {
+  const onLogoutClick = () => {
+    localStorage.removeItem("X-JWT");
+    setIsLogin(false);
+    history.push("/");
+    window.location.reload();
+  };
+  const history = useHistory();
   if (platform === "desktop") {
     return (
       <Container>
@@ -90,7 +97,12 @@ const Header = ({ platform }) => {
           </Wrapper>
           <Wrapper>
             <LoginWrapper>
-              <LoginText>로그인</LoginText>
+              {isLogin ? (
+                <LoginText onClick={onLogoutClick}>로그아웃</LoginText>
+              ) : (
+                <LoginText>로그인</LoginText>
+              )}
+
               <Link to={"/join"}>
                 <SignText>회원가입</SignText>
               </Link>
