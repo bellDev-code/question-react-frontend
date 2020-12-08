@@ -104,7 +104,7 @@ const passworRegex = /(?=.*\d{1,50})(?=.*[~`!@#$%\_^&*()-+=]{1,50})(?=.*[a-zA-Z]
 
 const Join = () => {
   const history = useHistory();
-  const [email, setEmail] = useState("sumaoo20@naver.com");
+  const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
   const [password, setPassword] = useState("");
   const [isEmail, setIsEmail] = useState(false);
