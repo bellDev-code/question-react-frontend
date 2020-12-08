@@ -100,7 +100,9 @@ const Header = ({ isLogin, setIsLogin, platform }) => {
               {isLogin ? (
                 <LoginText onClick={onLogoutClick}>로그아웃</LoginText>
               ) : (
-                <LoginText>로그인</LoginText>
+                <Link to={"/login"}>
+                  <LoginText>로그인</LoginText>
+                </Link>
               )}
 
               <Link to={"/join"}>
@@ -124,7 +126,9 @@ const Header = ({ isLogin, setIsLogin, platform }) => {
           </Wrapper>
           <Wrapper>
             <MobLoginWrapper>
-              <MobLoginText>로그인</MobLoginText>
+              <Link to={"/login"}>
+                <MobLoginText>로그인</MobLoginText>
+              </Link>
               <Link to={"/join"}>
                 <MobSignText>회원가입</MobSignText>
               </Link>

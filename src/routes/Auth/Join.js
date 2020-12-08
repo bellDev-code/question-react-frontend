@@ -32,8 +32,9 @@ const JoinTitle = styled.div`
 `;
 
 const JoinText = styled.div`
-  font-size: 30px;
+  font-size: 23px;
   padding: 20px 0;
+  line-height: normal;
 `;
 
 const InputWrapper = styled.div`
@@ -214,7 +215,7 @@ const Join = () => {
     <Container>
       <Wrapper>
         <JoinTitle>회원가입</JoinTitle>
-        <JoinText>회원가입을 통해 서로의 문답을 공유해봐요!</JoinText>
+        <JoinText>간단한 회원가입을 통해 질문을 공유해보자!</JoinText>
       </Wrapper>
       <FormWrapper>
         <InputWrapper>
