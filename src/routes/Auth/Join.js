@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  width: 50%;
+  width: 65%;
   text-align: center;
 `;
 
@@ -90,9 +90,16 @@ const Submitbutton = styled.div`
 
 const GenderInput = styled.input``;
 
-const GenderLabel = styled.label``;
+const GenderLabel = styled.label`
+  padding: 0 5px;
+`;
 
-const BirthLabel = styled.label``;
+const BirthLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px 0 5px;
+`;
 
 const BirthInput = styled.input``;
 

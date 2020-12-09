@@ -12,20 +12,52 @@ const QuestionWrapper = styled.div`
 `;
 const AnswerWrapper = styled.div`
   width: 100%;
-  padding: 16px 0;
+  padding: 5px 0 13px 0;
 `;
 
-const AnswerInput = styled.input``;
+const AnswerInput = styled.input`
+  border: initial;
+  border-bottom: 1px solid black;
+  padding: 5px 0;
+  width: 100%;
+`;
 
-const AnswerInputRow = ({ question, answerValue, onChange }) => {
-  return (
-    <Container>
-      <QuestionWrapper>{question}</QuestionWrapper>
-      <AnswerWrapper>
-        <AnswerInput defaultValue={answerValue} onChange={onChange} />
-      </AnswerWrapper>
-    </Container>
-  );
+const MobContainer = styled.div`
+  width: 100%;
+`;
+
+const MobQuestionWrapper = styled.div`
+  width: 100%;
+  padding: 5px 0px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const MobAnswerWrapper = styled.div`
+  width: 100%;
+  padding: 3px 0 8px 0;
+`;
+
+const AnswerInputRow = ({ question, answerValue, onChange, platfrom }) => {
+  if (platfrom === "desktop") {
+    return (
+      <Container>
+        <QuestionWrapper>{question}</QuestionWrapper>
+        <AnswerWrapper>
+          <AnswerInput defaultValue={answerValue} onChange={onChange} />
+        </AnswerWrapper>
+      </Container>
+    );
+  } else {
+    return (
+      <MobContainer>
+        <MobQuestionWrapper>{question}</MobQuestionWrapper>
+        <MobAnswerWrapper>
+          <AnswerInput defaultValue={answerValue} onChange={onChange} />
+        </MobAnswerWrapper>
+      </MobContainer>
+    );
+  }
 };
 
 export default AnswerInputRow;

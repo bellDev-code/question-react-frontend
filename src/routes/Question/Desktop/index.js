@@ -7,7 +7,7 @@ const Container = styled.div`
   width: 75%;
 `;
 
-const DeskWrapper = styled.div`
+const MobWrapper = styled.div`
   font-size: 16px;
   padding: 16px;
 `;
@@ -28,6 +28,8 @@ const PagingButton = styled.div`
   border: 1px solid #fbbc05;
   border-radius: 15px;
   margin: 0px 15px;
+  background-color: #fbbc05;
+  color: #fff;
   cursor: pointer;
 `;
 
@@ -56,7 +58,7 @@ const SendButton = styled.div`
   font-weight: 600;
 `;
 
-const DeskQuestion = ({ questionList }) => {
+const DeskQuestion = ({ questionList, platfrom }) => {
   const pageLimit = 10;
 
   const maxPage = Math.floor(questionList.length / pageLimit);
@@ -96,11 +98,12 @@ const DeskQuestion = ({ questionList }) => {
 
   return (
     <Container>
-      <DeskWrapper>백문백답 오신것을 환영합니다.</DeskWrapper>
+      <MobWrapper>백문백답 오신것을 환영합니다.</MobWrapper>
       <Wrapper>
         {listData.map((question, index) => {
           return (
             <AnswerInputRow
+              platfrom="desktop"
               question={question.title}
               key={index}
               answervalue={question.input.value}

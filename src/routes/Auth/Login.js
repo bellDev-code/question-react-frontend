@@ -29,7 +29,7 @@ const LoginText = styled.div`
 `;
 
 const LoginWrapper = styled.div`
-  width: 50%;
+  width: 65%;
 `;
 
 const Form = styled.form`
