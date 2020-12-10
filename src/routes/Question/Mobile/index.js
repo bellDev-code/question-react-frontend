@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AnswerInputRow from "../../../components/AnswerInputRow";
 import axios from "axios";
+import bgImg from "../../../assets/images/backgroundImage.jpg";
 
 const Container = styled.div`
-  width: 75%;
+  width: 100%;
+  background-image: url(${bgImg});
 `;
 
 const MobWrapper = styled.div`
+  width: 75%;
+  margin: auto;
   font-size: 13px;
   padding: 10px;
 `;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 75%;
+  margin: auto;
+`;
 
 const PagingbuttonWrapper = styled.div`
   display: flex;

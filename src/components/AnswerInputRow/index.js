@@ -20,6 +20,7 @@ const AnswerInput = styled.input`
   border-bottom: 1px solid black;
   padding: 5px 0;
   width: 100%;
+  background-color: transparent;
 `;
 
 const MobContainer = styled.div`
@@ -44,7 +45,11 @@ const AnswerInputRow = ({ question, answerValue, onChange, platfrom }) => {
       <Container>
         <QuestionWrapper>{question}</QuestionWrapper>
         <AnswerWrapper>
-          <AnswerInput defaultValue={answerValue} onChange={onChange} />
+          <AnswerInput
+            type="text"
+            defaultValue={answerValue}
+            onChange={onChange}
+          />
         </AnswerWrapper>
       </Container>
     );
