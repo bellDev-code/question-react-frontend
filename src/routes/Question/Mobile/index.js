@@ -40,7 +40,6 @@ const DisablePagingButton = styled.div`
   border: 1px solid #f7d780;
   border-radius: 15px;
   color: #fff;
-  font-weight: 600;
   margin: 0px 10px;
 `;
 
