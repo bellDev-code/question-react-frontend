@@ -1,116 +1,68 @@
-import React from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import PlatformController from "../../components/PlatformController";
 import useInput from "../../hooks/useInput";
 import DeskQuestion from "./Desktop";
 import MobQuestion from "./Mobile";
+import { GET_STAGE } from "./Question.queries";
+import { SUBMIT_STAGE } from "./SubmitQuestion/SubmitQuestion.queries";
 
 const Question = (props) => {
-  const questionList = [
-    {
-      title: "1. 이름은??",
-      input: useInput(""),
-    },
-    {
-      title: "2. 지금까지 살면서 별명은?",
-      input: useInput(""),
-    },
-    {
-      title: "3. 우리의 애칭은? (없으면 정해보기)",
-      input: useInput(""),
-    },
-    {
-      title: "4. 생년월일은?",
-      input: useInput(""),
-    },
-    {
-      title: "5. 혈액형은?",
-      input: useInput(""),
-    },
-    {
-      title: "6. 너의 가족에 대해서 설명해줘",
-      input: useInput(""),
-    },
-    {
-      title: "7. 직업은?",
-      input: useInput(""),
-    },
-    {
-      title: "8. 상대방의 매력은?",
-      input: useInput(""),
-    },
-    {
-      title: "9. 내가 생각하는 상대방의 성격은?",
-      input: useInput(""),
-    },
-    {
-      title: "10. 신체부위 중 매력적인 곳은?",
-      input: useInput(""),
-    },
-    {
-      title: "11. 상대방이 성형을 한다면?",
-      input: useInput(""),
-    },
-    {
-      title: "12. 키는?",
-      input: useInput(""),
-    },
-    {
-      title: "13. 가장 친한 친구는?",
-      input: useInput(""),
-    },
-    {
-      title: "14. 가장 아끼는 물건은?",
-      input: useInput(""),
-    },
-    {
-      title: "15. 잠버릇 있어?",
-      input: useInput(""),
-    },
-    {
-      title: "16. 핸드폰 기종은?",
-      input: useInput(""),
-    },
-    {
-      title: "17. 스마트폰으로 가장 많이 하는게 뭐야?",
-      input: useInput(""),
-    },
-    {
-      title: "18. 닮았다고 생각하는 동물은?",
-      input: useInput(""),
-    },
-    {
-      title: "19. 닮았다고 생각하는 연예인?",
-      input: useInput(""),
-    },
-    {
-      title: "20. 닮았다고 생각하는 만화 캐릭터는?",
-      input: useInput(""),
-    },
-    {
-      title: "21. 너가 느끼는 나의 정신연령은?",
-      input: useInput(""),
-    },
-    {
-      title: "22. 잠이 안올때 하는 행동은?",
-      input: useInput(""),
-    },
-    {
-      title: "23. 내 사랑을 표현하는 방법은?",
-      input: useInput(""),
-    },
-    {
-      title: "24. 내가 잘못을 해서 사과 하고 싶은 표현을 전달할때 하는 말은?",
-      input: useInput(""),
-    },
-  ];
   const { platform } = props;
+  const questionList = [];
+  const [steps, setSteps] = useState([]);
   // console.log(platform);
+  const [answerListData, setAnswerListData] = useState([]);
+  const history = useHistory();
+
+  const { data } = useQuery(GET_STAGE, {
+    variables: {
+      id: 1,
+    },
+    fetchPolicy: "cache-and-network",
+  });
+
+  useEffect(() => {
+    if (data && data.getStage) {
+      if (data.getStage.ok) {
+        const stage = data.getStage.stage;
+        setSteps(stage.steps);
+        setAnswerListData(
+          stage.steps.map((step) =>
+            step.questions.map((question) => {
+              return Object.assign(
+                {},
+                {
+                  ...question,
+                  answer: "",
+                }
+              );
+            })
+          )
+        );
+        console.log(stage);
+      }
+    }
+  }, [data]);
+  console.log(answerListData);
   return (
-    <PlatformController
-      platform={platform}
-      deskRender={<DeskQuestion questionList={questionList} />}
-      mobRender={<MobQuestion questionList={questionList} />}
-    />
+    steps &&
+    steps.length > 0 && (
+      <PlatformController
+        platform={platform}
+        deskRender={
+          <DeskQuestion
+            history={history}
+            answerListData={answerListData}
+            setAnswerListData={setAnswerListData}
+            steps={steps}
+          />
+        }
+        mobRender={null}
+      />
+    )
   );
 };
 

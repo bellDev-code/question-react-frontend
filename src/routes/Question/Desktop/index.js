@@ -20,6 +20,8 @@ const Wrapper = styled.div`
   margin: auto;
 `;
 
+const Form = styled.form``;
+
 const PagingbuttonWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -65,16 +67,41 @@ const SendButton = styled.div`
   font-weight: 600;
 `;
 
-const DeskQuestion = ({ questionList, platfrom }) => {
-  const pageLimit = 10;
-
-  const maxPage = Math.floor(questionList.length / pageLimit);
+const DeskQuestion = ({
+  steps,
+  answerListData,
+  setAnswerListData,
+  history,
+}) => {
+  const maxPage = steps.length;
+  console.log("steps length", steps.length);
+  console.log("steps", steps);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [listData, setListData] = useState([]);
 
   const nextOnClick = () => {
     if (currentPage < maxPage) {
+      const answerInputs = document.getElementsByName("answer-input");
+      const answerValues = [];
+      let index = 0;
+      for (const input of answerInputs) {
+        answerValues.push({
+          index: index,
+          value: input.value,
+        });
+        index += 1;
+      }
+      setAnswerListData((prev) => {
+        const temp = [...prev];
+        answerValues.forEach((answer) => {
+          temp[currentPage][answer.index].answer = answer.value;
+        });
+        return temp;
+      });
+      console.log("answerListData", answerListData);
+    }
+    if (currentPage < maxPage - 1) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -86,38 +113,44 @@ const DeskQuestion = ({ questionList, platfrom }) => {
   };
 
   const sendOnClick = async () => {
-    const { data } = await axios({
-      method: "get",
-      url: "http://localhost:4000/api/users",
-      headers: { "Access-Control-Allow-Origin": "*" },
+    console.log("chek");
+    const answerList = [];
+
+    answerListData.forEach((answer) => {
+      answer.forEach((e) => {
+        answerList.push(e);
+      });
     });
-    console.log(data);
+    history.push({
+      pathname: "/submit/question",
+      state: {
+        answerList: answerList,
+      },
+    });
+    console.log(answerList);
   };
 
   useEffect(() => {
-    setListData([...listData, ...questionList.slice(currentPage, pageLimit)]);
-  }, []);
-
-  useEffect(() => {
-    const dataLength = currentPage * pageLimit;
-    setListData([...questionList.slice(dataLength, dataLength + pageLimit)]);
+    // const dataLength = currentPage * pageLimit;
+    setListData(steps[currentPage].questions);
   }, [currentPage]);
 
   return (
     <Container>
       <DeskWrapper>백문백답 오신것을 환영합니다.</DeskWrapper>
       <Wrapper>
-        {listData.map((question, index) => {
-          return (
-            <AnswerInputRow
-              platfrom="desktop"
-              question={question.title}
-              key={index}
-              answervalue={question.input.value}
-              onChange={question.input.onChange}
-            />
-          );
-        })}
+        <Form>
+          {listData.length > 0 &&
+            listData.map((question) => {
+              return (
+                <AnswerInputRow
+                  platfrom="desktop"
+                  question={question.title}
+                  key={question.id}
+                />
+              );
+            })}
+        </Form>
       </Wrapper>
       <PagingbuttonWrapper>
         {currentPage === 0 ? (
@@ -132,7 +165,7 @@ const DeskQuestion = ({ questionList, platfrom }) => {
         )}
       </PagingbuttonWrapper>
       <PagingbuttonWrapper>
-        {currentPage === maxPage ? (
+        {currentPage === maxPage - 1 ? (
           <SendButton onClick={sendOnClick}>제출</SendButton>
         ) : null}
       </PagingbuttonWrapper>

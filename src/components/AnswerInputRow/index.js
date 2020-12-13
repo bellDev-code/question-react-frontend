@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useInput from "../../hooks/useInput";
 
 const Container = styled.div`
   width: 100%;
@@ -39,7 +40,9 @@ const MobAnswerWrapper = styled.div`
   padding: 3px 0 8px 0;
 `;
 
-const AnswerInputRow = ({ question, answerValue, onChange, platfrom }) => {
+const AnswerInputRow = ({ question, platfrom }) => {
+  const answer = useInput(" ");
+
   if (platfrom === "desktop") {
     return (
       <Container>
@@ -47,8 +50,10 @@ const AnswerInputRow = ({ question, answerValue, onChange, platfrom }) => {
         <AnswerWrapper>
           <AnswerInput
             type="text"
-            defaultValue={answerValue}
-            onChange={onChange}
+            name="answer-input"
+            value={answer.value}
+            defaultValue={answer.value}
+            onChange={answer.onChange}
           />
         </AnswerWrapper>
       </Container>
@@ -58,7 +63,11 @@ const AnswerInputRow = ({ question, answerValue, onChange, platfrom }) => {
       <MobContainer>
         <MobQuestionWrapper>{question}</MobQuestionWrapper>
         <MobAnswerWrapper>
-          <AnswerInput defaultValue={answerValue} onChange={onChange} />
+          <AnswerInput
+            value={answer.value}
+            defaultValue={answer.value}
+            onChange={answer.onChange}
+          />
         </MobAnswerWrapper>
       </MobContainer>
     );
