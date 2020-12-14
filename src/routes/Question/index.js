@@ -1,17 +1,18 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import PlatformController from "../../components/PlatformController";
-import useInput from "../../hooks/useInput";
 import DeskQuestion from "./Desktop";
-import MobQuestion from "./Mobile";
 import { GET_STAGE } from "./Question.queries";
-import { SUBMIT_STAGE } from "./SubmitQuestion/SubmitQuestion.queries";
+
+const Container = styled.div`
+  font-family: HiMelody;
+  width: 100%;
+`;
 
 const Question = (props) => {
   const { platform } = props;
-  const questionList = [];
   const [steps, setSteps] = useState([]);
   // console.log(platform);
   const [answerListData, setAnswerListData] = useState([]);
@@ -50,18 +51,20 @@ const Question = (props) => {
   return (
     steps &&
     steps.length > 0 && (
-      <PlatformController
-        platform={platform}
-        deskRender={
-          <DeskQuestion
-            history={history}
-            answerListData={answerListData}
-            setAnswerListData={setAnswerListData}
-            steps={steps}
-          />
-        }
-        mobRender={null}
-      />
+      <Container>
+        <PlatformController
+          platform={platform}
+          deskRender={
+            <DeskQuestion
+              history={history}
+              answerListData={answerListData}
+              setAnswerListData={setAnswerListData}
+              steps={steps}
+            />
+          }
+          mobRender={null}
+        />
+      </Container>
     )
   );
 };

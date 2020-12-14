@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AnswerInputRow from "../../../components/AnswerInputRow";
-import axios from "axios";
 import bgImg from "../../../assets/images/backgroundImage.jpg";
 
 const Container = styled.div`
@@ -12,8 +11,9 @@ const Container = styled.div`
 const DeskWrapper = styled.div`
   width: 75%;
   margin: auto;
-  font-size: 16px;
-  padding: 16px;
+  font-size: 30px;
+  font-weight: 600;
+  padding: 20px;
 `;
 const Wrapper = styled.div`
   width: 75%;
@@ -26,7 +26,7 @@ const PagingbuttonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
+  padding-top: 20px;
 `;
 
 const PagingButton = styled.div`
@@ -74,9 +74,6 @@ const DeskQuestion = ({
   history,
 }) => {
   const maxPage = steps.length;
-  console.log("steps length", steps.length);
-  console.log("steps", steps);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [listData, setListData] = useState([]);
 
@@ -99,7 +96,7 @@ const DeskQuestion = ({
         });
         return temp;
       });
-      console.log("answerListData", answerListData);
+      // console.log("answerListData", answerListData);
     }
     if (currentPage < maxPage - 1) {
       setCurrentPage(currentPage + 1);
@@ -113,7 +110,6 @@ const DeskQuestion = ({
   };
 
   const sendOnClick = async () => {
-    console.log("chek");
     const answerList = [];
 
     answerListData.forEach((answer) => {
