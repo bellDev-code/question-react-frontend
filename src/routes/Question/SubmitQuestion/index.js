@@ -9,6 +9,12 @@ const Container = styled.div`
   width: 100%;
 `;
 
+const DeskTitle = styled.div`
+  text-align: center;
+  font-size: 30px;
+  padding: 50px 0 20px 0;
+`;
+
 const Form = styled.form`
   margin: 50px 0;
   display: flex;
@@ -18,12 +24,21 @@ const Form = styled.form`
 
 const Input = styled.input`
   padding: 5px;
-  margin-right: 10px;
+  margin-right: 20px;
+  width: 30%;
 `;
 
-const SendButton = styled.button`
+const SendButton = styled.div`
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
+  background-color: #fbbc05;
+  width: 100%;
+  max-width: 100px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 `;
 
 const SubmitQuestion = (props) => {
@@ -60,6 +75,7 @@ const SubmitQuestion = (props) => {
   };
   return (
     <Container>
+      <DeskTitle>이메일을 통해 서로의 문답을 공유해요!</DeskTitle>
       <Form>
         <Input
           placeholder="이메일"
