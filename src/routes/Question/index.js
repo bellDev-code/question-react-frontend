@@ -17,10 +17,11 @@ const Question = (props) => {
   // console.log(platform);
   const [answerListData, setAnswerListData] = useState([]);
   const history = useHistory();
+  const stageId = props.match.params.id;
 
   const { data } = useQuery(GET_STAGE, {
     variables: {
-      id: 1,
+      id: +stageId,
     },
     fetchPolicy: "cache-and-network",
   });
@@ -43,11 +44,11 @@ const Question = (props) => {
             })
           )
         );
-        console.log(stage);
+        // console.log(stage);
       }
     }
   }, [data]);
-  console.log(answerListData);
+  // console.log(answerListData);
   return (
     steps &&
     steps.length > 0 && (

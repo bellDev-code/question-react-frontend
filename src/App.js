@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { HashRouter as Router, useHistory } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import AppRouter from "./components/Routes";
 import useWindowSize from "./hooks/useWindowSize";
 import usePlatform from "./hooks/usePlatform";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GlobalStyles from "./components/GlobalStyles";
+import { AUTH_TOKEN } from "./constant";
 
 const BodyContainer = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const App = () => {
 
   // Will mount
   useEffect(() => {
-    const token = localStorage.getItem("X-JWT");
+    const token = localStorage.getItem(AUTH_TOKEN);
     if (token) {
       setIsLogin(true);
     } else {

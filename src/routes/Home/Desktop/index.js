@@ -27,29 +27,10 @@ const BodySubTitle = styled.div`
 const MenuArea = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-top: 12vh;
 `;
 
-const DeskHome = () => {
-  const menus = [
-    {
-      name: "백문백답",
-      routeName: "/question",
-      text: "100가지의 질문을 완성하고 사랑하는 사람과 공유하자",
-    },
-    {
-      name: "밸런스게임",
-      routeName: "/",
-      text: "서로의 취향 궁금하지 않아?",
-    },
-    {
-      name: "심심풀이 VS게임",
-      routeName: "/",
-      text: "심심할땐 VS게임!",
-    },
-  ];
-
+const DeskHome = ({ menus }) => {
   return (
     <Container>
       <Wrapper>
@@ -60,17 +41,19 @@ const DeskHome = () => {
           </BodySubTitle>
         </BodyArea>
         <MenuArea>
-          {menus.map((menus, index) => {
-            return (
-              <Link to={menus.routeName} key={index}>
-                <MenuTabBox
-                  platform="desktop"
-                  name={menus.name}
-                  text={menus.text}
-                />
-              </Link>
-            );
-          })}
+          {menus &&
+            menus.length > 0 &&
+            menus.map((menus, index) => {
+              return (
+                <Link to={menus.routeName} key={index}>
+                  <MenuTabBox
+                    platform="desktop"
+                    name={menus.name}
+                    text={menus.text}
+                  />
+                </Link>
+              );
+            })}
         </MenuArea>
       </Wrapper>
     </Container>

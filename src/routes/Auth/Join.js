@@ -2,7 +2,9 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { formatYMD } from "../../utils";
+import { AUTH_TOKEN } from "../../constant";
+import { formatYMD } from "../../utils/dateUtils";
+import { emailRegex, nickNameRegex, passworRegex } from "../../utils/regex";
 import {
   ADD_USER,
   COMPLETE_EMAIL_VERYFY,
@@ -103,11 +105,9 @@ const BirthLabel = styled.label`
 
 const BirthInput = styled.input``;
 
-const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-const nickNameRegex = /^[가-힣a-zA-Z0-9]+$/;
-
-const passworRegex = /(?=.*\d{1,50})(?=.*[~`!@#$%\_^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+// 프로그래밍 기본 => 고정값은 한 번 선언해서 관리해주는게 편하다
+const MALE = "male";
+const FEMALE = "female";
 
 const Join = () => {
   const history = useHistory();
@@ -117,10 +117,12 @@ const Join = () => {
   const [isEmail, setIsEmail] = useState(false);
   const [verifyCode, setVerifyCode] = useState("");
   const [isVerified, setVerified] = useState(false);
-  const [gender, setGender] = useState("male");
+  const [gender, setGender] = useState(MALE);
   const [birth, setBirth] = useState(formatYMD(new Date().getTime()));
 
-  const [addUserMutation] = useMutation(ADD_USER);
+  const [addUserMutation] = useMutation(ADD_USER, {
+    fetchPolicy: "no-cache",
+  });
 
   const [startEmailVerify] = useMutation(START_EMAIL_VERIFY, {
     fetchPolicy: "no-cache",
@@ -131,29 +133,26 @@ const Join = () => {
   });
 
   const joinOnClick = async () => {
-    if (!isVerified) {
-      window.alert("이메일 인증은 필수입니다.");
-      return;
-    }
-
-    if (!email || !nickName || !password) {
-      window.alert("모든 항목은 필수 입력 항목입니다.");
-      return;
-    }
-
-    if (!nickNameRegex.test(nickName) || nickName.length > 16) {
-      window.alert("닉네임은 한글, 영문, 숫자 혼합 16자 이내만 가능합니다.");
-      return;
-    }
-
-    if (!passworRegex.test(password) || password.length > 50) {
-      window.alert(
-        "비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 50자리 이하 입니다."
-      );
-      return;
-    }
-
     try {
+      if (!isVerified) {
+        throw new Error("이메일 인증은 필수입니다.");
+      }
+
+      if (!email || !nickName || !password) {
+        throw new Error("모든 항목은 필수 입력 항목입니다.");
+      }
+
+      if (!nickNameRegex.test(nickName) || nickName.length > 16) {
+        throw new Error(
+          "닉네임은 한글, 영문, 숫자 혼합 16자 이내만 가능합니다."
+        );
+      }
+
+      if (!passworRegex.test(password) || password.length > 50) {
+        throw new Error(
+          "비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 50자리 이하 입니다."
+        );
+      }
       const { data } = await addUserMutation({
         variables: {
           nickName: nickName,
@@ -164,24 +163,24 @@ const Join = () => {
         },
       });
       if (data && data.addUser && data.addUser.ok) {
-        localStorage.setItem("X-JWT", data.addUser.token);
+        localStorage.setItem(AUTH_TOKEN, data.addUser.token);
         history.push("/");
         window.location.reload();
       } else {
         window.alert("이미 사용 중인 이메일이거나 잘못된 요청입니다.");
         return;
       }
-      console.log(data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      window.alert(error.message);
+    }
   };
 
   const emailSendOnClick = async () => {
-    if (!emailRegex.test(email)) {
-      window.alert("이메일 형식이 잘못되었습니다.");
-      return;
-    }
-
     try {
+      if (!emailRegex.test(email)) {
+        throw new Error();
+      }
       const { data } = await startEmailVerify({
         variables: {
           email: email,
@@ -193,15 +192,15 @@ const Join = () => {
       console.log(data);
     } catch (error) {
       console.log(error);
+      window.alert("이메일 형식이 잘못되었습니다.");
     }
   };
 
   const verifyEmailClick = async () => {
-    if (verifyCode.length !== 6) {
-      window.alert("인증코드가 올바르지 않습니다.");
-      return;
-    }
     try {
+      if (verifyCode.length !== 6) {
+        throw new Error();
+      }
       const { data } = await completeEmailVerify({
         variables: {
           email: email,
@@ -210,12 +209,11 @@ const Join = () => {
       });
       if (data && data.completeEmailVerify && data.completeEmailVerify.ok) {
         setVerified(true);
-      } else {
-        window.alert("인증코드가 올바르지 않습니다.");
       }
-      console.log(data);
+      throw new Error();
     } catch (error) {
       console.log(error);
+      window.alert("인증코드가 올바르지 않습니다.");
     }
   };
   return (
@@ -272,15 +270,17 @@ const Join = () => {
           <GenderInput
             type="radio"
             id="radio_male"
-            checked={gender === "male"}
-            onClick={() => setGender("male")}
+            checked={gender === MALE}
+            onClick={() => setGender(MALE)}
+            readOnly
           />
           <GenderLabel>여성</GenderLabel>
           <GenderInput
             type="radio"
             id="radio_female"
-            checked={gender === "female"}
-            onClick={() => setGender("female")}
+            checked={gender === FEMALE}
+            onClick={() => setGender(FEMALE)}
+            readOnly
           />
         </InputWrapper>
         <InputWrapper>

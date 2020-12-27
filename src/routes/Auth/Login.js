@@ -1,9 +1,12 @@
+import React from "react";
 import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 import { LOGIN_USER } from "./Auth.queries";
+import { AUTH_TOKEN } from "../../constant";
+
+// 맨위에 라이브러리 아래 커스텀 컴포넌트로 정리해주게 좋다.
 
 const Container = styled.div`
   width: 75%;
@@ -62,17 +65,26 @@ const LoginButton = styled.button`
 
 const Login = () => {
   const history = useHistory();
-  const email = useInput();
-  const password = useInput();
+  const email = useInput("");
+  const password = useInput("");
 
-  const [loginUserMutation] = useMutation(LOGIN_USER);
+  // cache => 임시 저장소
+  // useMutation은 배열 return
+  // ex ) const array = [0, 1, 2]
+  // const [zero, one, two] = array;
+  // zero의 이름은 아무렇게나 써놓아도 된다.
+  // console.log(zero);
+  const [loginUserMutation] = useMutation(LOGIN_USER, {
+    fetchPolicy: "no-cache",
+  });
 
-  const onLoginClick = async () => {
-    if (!email.value || !password.value) {
-      window.alert("존재하지 않는 이메일이거나 비밀번호가 일치하지 않습니다.");
-      return;
-    }
+  const onLoginClick = async (event) => {
+    event.preventDefault();
+    // 기존의 html에서 default event를 없애주는 기능 외워두자
     try {
+      if (!email.value || !password.value) {
+        throw Error();
+      }
       const { data } = await loginUserMutation({
         variables: {
           email: email.value,
@@ -80,16 +92,16 @@ const Login = () => {
         },
       });
       if (data && data.loginUser && data.loginUser.ok) {
-        localStorage.setItem("X-JWT", data.loginUser.token);
+        localStorage.setItem(AUTH_TOKEN, data.loginUser.token);
         history.push("/");
         window.location.reload();
-      } else {
-        window.alert(
-          "존재하지 않는 이메일이거나 비밀번호가 일치하지 않습니다."
-        );
         return;
       }
-    } catch (error) {}
+      throw Error();
+    } catch (error) {
+      console.log(error);
+      window.alert("존재하지 않는 이메일이거나 비밀번호가 일치하지 않습니다.");
+    }
   };
   return (
     <Container>

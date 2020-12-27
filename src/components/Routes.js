@@ -6,18 +6,22 @@ import Login from "../routes/Auth/Login";
 import Question from "../routes/Question";
 import SubmitQuestion from "../routes/Question/SubmitQuestion";
 
-const IsloginRouter = (props) => {
+const IsloginRouter = (routeProps) => {
   return (
     <Switch>
-      <Route exact path="/" render={(routeProps) => <Home {...props} />} />
+      <Route
+        exact
+        path="/"
+        render={(props) => <Home {...props} {...routeProps} />}
+      />
 
       <Route
-        path="/Question"
-        render={(routeProps) => <Question {...props} />}
+        path="/question/:id"
+        render={(props) => <Question {...props} {...routeProps} />}
       />
       <Route
         path="/submit/question"
-        render={(routeProps) => <SubmitQuestion {...props} />}
+        render={(props) => <SubmitQuestion {...props} {...routeProps} />}
       />
       <Redirect from="*" to="/" />
     </Switch>
@@ -27,18 +31,24 @@ const IsloginRouter = (props) => {
 const IslogoutRouter = (props) => {
   return (
     <Switch>
-      <Route exact path="/" render={(routeProps) => <Home {...props} />} />
-      <Route path="/login" render={(routeProps) => <Login {...props} />} />
-      <Route path="/join" render={(routeProps) => <Join {...props} />} />
+      <Route exact path="/" render={() => <Home {...props} />} />
+      <Route path="/login" render={() => <Login {...props} />} />
+      <Route path="/join" render={() => <Join {...props} />} />
+      <Redirect from="*" to="/" />
     </Switch>
   );
 };
 
 const AppRouter = (props) => {
-  const { isLogin } = props;
+  // props의 내용에 따라 펼칠지 {...props} 각각으로 줄지 정한다.
+  const { isLogin, platform } = props;
   return (
     <Switch>
-      {isLogin ? <IsloginRouter {...props} /> : <IslogoutRouter {...props} />}
+      {isLogin ? (
+        <IsloginRouter isLogin={isLogin} platform={platform} />
+      ) : (
+        <IslogoutRouter isLogin={isLogin} platform={platform} />
+      )}
     </Switch>
   );
 };

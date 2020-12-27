@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
+import { AUTH_TOKEN } from "../../constant";
 
 const Container = styled.div`
   width: 100%;
@@ -78,13 +79,15 @@ const MobSignText = styled.div`
 `;
 
 const Header = ({ isLogin, setIsLogin, platform }) => {
+  const history = useHistory();
+
   const onLogoutClick = () => {
-    localStorage.removeItem("X-JWT");
+    localStorage.removeItem(AUTH_TOKEN);
     setIsLogin(false);
     history.push("/");
     window.location.reload();
   };
-  const history = useHistory();
+
   if (platform === "desktop") {
     return (
       <Container>
