@@ -40,20 +40,27 @@ const MobAnswerWrapper = styled.div`
   padding: 3px 0 8px 0;
 `;
 
-const AnswerInputRow = ({ question, platfrom }) => {
-  const answer = useInput(" ");
-
+const AnswerInputRow = ({
+  question,
+  platfrom,
+  answer,
+  currentPage,
+  updateAnswer,
+}) => {
+  const onChange = (event) => {
+    updateAnswer(currentPage, question.id, event.target.value);
+  };
   if (platfrom === "desktop") {
     return (
       <Container>
-        <QuestionWrapper>{question}</QuestionWrapper>
+        <QuestionWrapper>{question.title}</QuestionWrapper>
         <AnswerWrapper>
           <AnswerInput
             type="text"
             name="answer-input"
-            value={answer.value}
-            defaultValue={answer.value}
-            onChange={answer.onChange}
+            value={answer}
+            defaultValue={answer}
+            onChange={onChange}
           />
         </AnswerWrapper>
       </Container>
@@ -64,9 +71,11 @@ const AnswerInputRow = ({ question, platfrom }) => {
         <MobQuestionWrapper>{question}</MobQuestionWrapper>
         <MobAnswerWrapper>
           <AnswerInput
-            value={answer.value}
-            defaultValue={answer.value}
-            onChange={answer.onChange}
+            type="text"
+            name="answer-input"
+            value={answer}
+            defaultValue={answer}
+            onChange={onChange}
           />
         </MobAnswerWrapper>
       </MobContainer>
