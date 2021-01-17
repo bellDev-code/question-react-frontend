@@ -39,6 +39,7 @@ const Home = (props) => {
       return {
         name: stage.name,
         routeName: `/question/${stage.id}`,
+        thumbnail: stage.thumbnail,
         text: "test text",
       };
     });

@@ -48,6 +48,7 @@ const DeskHome = ({ menus }) => {
                 <Link to={menus.routeName} key={index}>
                   <MenuTabBox
                     platform="desktop"
+                    thumbnail={menus.thumbnail}
                     name={menus.name}
                     text={menus.text}
                   />

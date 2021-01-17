@@ -36,11 +36,14 @@ const MobWrapper = styled.div`
   text-align: center;
 `;
 
-const MenuTabBox = ({ platform, name, text }) => {
+const Image = styled.img``;
+
+const MenuTabBox = ({ platform, name, text, thumbnail }) => {
   if (platform === "desktop") {
     return (
       <Container>
         <Wrapper>
+          <Image src={thumbnail}></Image>
           {name}
           <Text>{text}</Text>
         </Wrapper>
