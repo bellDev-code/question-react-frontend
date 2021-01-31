@@ -3,16 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div``;
 
-const Wrapper = styled.div`
-  font-size: 15px;
-  margin: 0 10px;
-  padding: 20px;
-  border-radius: 10px;
-  width: 17vh;
-  height: 15vh;
-  border: solid 1px #d3d3d3;
-  font-weight: 600;
-`;
+const Wrapper = styled.div``;
 
 const Text = styled.div`
   padding-top: 15px;
@@ -36,7 +27,11 @@ const MobWrapper = styled.div`
   text-align: center;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+`;
 
 const MenuTabBox = ({ platform, name, text, thumbnail }) => {
   if (platform === "desktop") {

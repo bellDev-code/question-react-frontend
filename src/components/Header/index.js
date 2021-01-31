@@ -88,6 +88,10 @@ const Header = ({ isLogin, setIsLogin, platform }) => {
     window.location.reload();
   };
 
+  const onProfileClick = () => {
+    history.push("/user/profile/update");
+  };
+
   if (platform === "desktop") {
     return (
       <Container>
@@ -102,16 +106,20 @@ const Header = ({ isLogin, setIsLogin, platform }) => {
           <Wrapper>
             <LoginWrapper>
               {isLogin ? (
-                <LoginText onClick={onLogoutClick}>로그아웃</LoginText>
+                <>
+                  <LoginText onClick={onLogoutClick}>로그아웃</LoginText>
+                  <LoginText onClick={onProfileClick}>내프로필</LoginText>
+                </>
               ) : (
                 <Link to={"/login"}>
                   <LoginText>로그인</LoginText>
                 </Link>
               )}
-
-              <Link to={"/join"}>
-                <SignText>회원가입</SignText>
-              </Link>
+              {!isLogin && (
+                <Link to={"/join"}>
+                  <SignText>회원가입</SignText>
+                </Link>
+              )}
             </LoginWrapper>
           </Wrapper>
         </ContainerWrapper>

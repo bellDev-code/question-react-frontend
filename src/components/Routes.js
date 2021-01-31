@@ -5,6 +5,7 @@ import Join from "../routes/Auth/Join";
 import Login from "../routes/Auth/Login";
 import Question from "../routes/Question";
 import SubmitQuestion from "../routes/Question/SubmitQuestion";
+import UpdateProfile from "../routes/Profile/UpdateProfile";
 
 const IsloginRouter = (routeProps) => {
   return (
@@ -22,6 +23,11 @@ const IsloginRouter = (routeProps) => {
       <Route
         path="/submit/question"
         render={(props) => <SubmitQuestion {...props} {...routeProps} />}
+      />
+
+      <Route
+        path="/user/profile/update"
+        render={(props) => <UpdateProfile {...props} {...routeProps} />}
       />
       <Redirect from="*" to="/" />
     </Switch>

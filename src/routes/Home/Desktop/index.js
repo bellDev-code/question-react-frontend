@@ -10,13 +10,16 @@ const Wrapper = styled.div`
   height: 55vh;
 `;
 
+const ImageWrapper = styled.div`
+  width: 33%;
+`;
+
 const BodyArea = styled.div`
   text-align: center;
 `;
 
 const BodyTitle = styled.div`
   font-size: 50px;
-  margin-top: 20vh;
 `;
 
 const BodySubTitle = styled.div`
@@ -27,7 +30,6 @@ const BodySubTitle = styled.div`
 const MenuArea = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 12vh;
 `;
 
 const DeskHome = ({ menus }) => {
@@ -45,14 +47,16 @@ const DeskHome = ({ menus }) => {
             menus.length > 0 &&
             menus.map((menus, index) => {
               return (
-                <Link to={menus.routeName} key={index}>
-                  <MenuTabBox
-                    platform="desktop"
-                    thumbnail={menus.thumbnail}
-                    name={menus.name}
-                    text={menus.text}
-                  />
-                </Link>
+                <ImageWrapper>
+                  <Link to={menus.routeName} key={index}>
+                    <MenuTabBox
+                      platform="desktop"
+                      thumbnail={menus.thumbnail}
+                      name={menus.name}
+                      text={menus.text}
+                    />
+                  </Link>
+                </ImageWrapper>
               );
             })}
         </MenuArea>
