@@ -15,3 +15,15 @@ export const GET_MY_PROFILE = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser($nickName: String, $birth: String, $photos: [PhotoInput!]) {
+    updateUser(nickName: $nickName, birth: $birth, photos: $photos) {
+      ok
+      error
+      user {
+        id
+      }
+    }
+  }
+`;

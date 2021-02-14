@@ -1,9 +1,10 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { Component, useEffect, useState } from "react";
 import styled from "styled-components";
-import { GET_MY_PROFILE } from "./Profile.queries";
+import { GET_MY_PROFILE, UPDATE_USER } from "./Profile.queries";
 import useInput from "../../hooks/useInput";
 import { formatYMD } from "../../utils/dateUtils";
+import axios from "axios";
 
 const Container = styled.div``;
 const Wrapper = styled.div``;
@@ -23,6 +24,8 @@ const ProfileImage = styled.img`
   height: 150px;
 `;
 
+const Button = styled.button``;
+
 const MAX_IMAGE_SIZE = 1024 * 1024 * 5;
 const IMAGE_TYPES = ["image/jpeg", "image/png"];
 
@@ -34,6 +37,10 @@ const UpdateProfile = ({}) => {
 
   const { data } = useQuery(GET_MY_PROFILE, {
     fetchPolicy: "network-only",
+  });
+
+  const [updateUserMutation] = useMutation(UPDATE_USER, {
+    fetchPolicy: "no-cache",
   });
 
   useEffect(() => {
@@ -61,10 +68,7 @@ const UpdateProfile = ({}) => {
 
       let reader = new FileReader();
 
-      if (
-        file.size > MAX_IMAGE_SIZE ||
-        !IMAGE_TYPES.some((type) => type === file.type)
-      ) {
+      if (file.size > MAX_IMAGE_SIZE || !IMAGE_TYPES.some((type) => type === file.type)) {
         window.alert(`이미지 최대 사이즈는 ${MAX_IMAGE_SIZE}byte 입니다.`);
         return;
       }
@@ -77,6 +81,49 @@ const UpdateProfile = ({}) => {
         });
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const finishOnclick = async () => {
+    try {
+      let profileImageInput;
+      if (profileImage) {
+        const form = new FormData();
+        form.append("file", profileImage.file);
+        const { data } = await axios.post("http://localhost:4000/api/upload", form, {
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        });
+        if (data) {
+          const { key, location } = data;
+          profileImageInput = {
+            key: key,
+            url: location,
+          };
+        } else {
+          throw Error();
+        }
+      }
+
+      const { data } = await updateUserMutation({
+        variables: {
+          nickName: nickName.value,
+          birth: new Date(birth).getTime().toString(),
+          photos: [profileImageInput],
+        },
+      });
+      console.log(data);
+      if (data?.updateUser?.ok) {
+        const user = data.updateUser.user;
+        if (user) {
+          window.alert("정보가 수정되었습니다.");
+          return;
+        }
+      }
+      throw new Error("정보 수정 중 오류가 발생했습니다.");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -99,11 +146,7 @@ const UpdateProfile = ({}) => {
           />
         )}
 
-        <Input
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={imageUploadHandler}
-        />
+        <Input type="file" accept="image/png, image/jpeg" onChange={imageUploadHandler} />
       </InputWrapper>
       <InputWrapper>
         <InputLabel>닉네임</InputLabel>
@@ -111,13 +154,9 @@ const UpdateProfile = ({}) => {
       </InputWrapper>
       <InputWrapper>
         <InputLabel>생년월일</InputLabel>
-        <BirthInput
-          type="date"
-          value={birth}
-          max={birth}
-          onChange={(event) => setBirth(event.target.value)}
-        />
+        <BirthInput type="date" value={birth} max={birth} onChange={(event) => setBirth(event.target.value)} />
       </InputWrapper>
+      <Button onClick={finishOnclick}>수정완료</Button>
     </Container>
   );
 };
