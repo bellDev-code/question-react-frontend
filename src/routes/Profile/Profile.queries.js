@@ -11,6 +11,10 @@ export const GET_MY_PROFILE = gql`
         gender
         birth
         createdAt
+        profileImages {
+          id
+          url
+        }
       }
     }
   }

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import MenuTabBox from "../../../components/menuTabBox";
+import PreviewImage from "../../../assets/images/preview.png";
 
 const Container = styled.div`
   width: 75%;
@@ -38,9 +39,7 @@ const DeskHome = ({ menus }) => {
       <Wrapper>
         <BodyArea>
           <BodyTitle>방구석에서 놀아보자!</BodyTitle>
-          <BodySubTitle>
-            커플이 함께하는 백문백답, 밸런스게임, VS게임
-          </BodySubTitle>
+          <BodySubTitle>커플이 함께하는 백문백답, 밸런스게임, VS게임</BodySubTitle>
         </BodyArea>
         <MenuArea>
           {menus &&
@@ -51,7 +50,7 @@ const DeskHome = ({ menus }) => {
                   <Link to={menus.routeName} key={index}>
                     <MenuTabBox
                       platform="desktop"
-                      thumbnail={menus.thumbnail}
+                      thumbnail={menus.thumbnail ? menus.thumbnail.url : PreviewImage}
                       name={menus.name}
                       text={menus.text}
                     />

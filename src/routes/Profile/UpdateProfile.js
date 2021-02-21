@@ -5,6 +5,7 @@ import { GET_MY_PROFILE, UPDATE_USER } from "./Profile.queries";
 import useInput from "../../hooks/useInput";
 import { formatYMD } from "../../utils/dateUtils";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div``;
 const Wrapper = styled.div``;
@@ -30,6 +31,7 @@ const MAX_IMAGE_SIZE = 1024 * 1024 * 5;
 const IMAGE_TYPES = ["image/jpeg", "image/png"];
 
 const UpdateProfile = ({}) => {
+  const history = useHistory();
   const [user, setUser] = useState();
   const nickName = useInput("");
   const [birth, setBirth] = useState();
@@ -56,6 +58,12 @@ const UpdateProfile = ({}) => {
     if (user) {
       nickName.setValue(user.nickName);
       setBirth(formatYMD(user.birth));
+
+      if (user.profileImages?.length) {
+        setProfileImage({
+          uri: user.profileImages[0].url,
+        });
+      }
     }
   }, [user]);
 
@@ -87,7 +95,9 @@ const UpdateProfile = ({}) => {
   const finishOnclick = async () => {
     try {
       let profileImageInput;
-      if (profileImage) {
+
+      // 프로필 사진 업로드
+      if (profileImage.file) {
         const form = new FormData();
         form.append("file", profileImage.file);
         const { data } = await axios.post("http://localhost:4000/api/upload", form, {
@@ -110,7 +120,7 @@ const UpdateProfile = ({}) => {
         variables: {
           nickName: nickName.value,
           birth: new Date(birth).getTime().toString(),
-          photos: [profileImageInput],
+          photos: profileImageInput ? [profileImageInput] : [],
         },
       });
       console.log(data);
@@ -118,6 +128,7 @@ const UpdateProfile = ({}) => {
         const user = data.updateUser.user;
         if (user) {
           window.alert("정보가 수정되었습니다.");
+          history.push("/");
           return;
         }
       }

@@ -8,7 +8,10 @@ export const GET_STAGE_LIST = gql`
       stages {
         id
         name
-        thumbnail
+        thumbnail {
+          id
+          url
+        }
       }
     }
   }
