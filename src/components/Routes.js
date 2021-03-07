@@ -6,29 +6,19 @@ import Login from "../routes/Auth/Login";
 import Question from "../routes/Question";
 import SubmitQuestion from "../routes/Question/SubmitQuestion";
 import UpdateProfile from "../routes/Profile/UpdateProfile";
+import BalanceGame from "../routes/BalanceGame";
 
 const IsloginRouter = (routeProps) => {
   return (
     <Switch>
-      <Route
-        exact
-        path="/"
-        render={(props) => <Home {...props} {...routeProps} />}
-      />
+      <Route exact path="/" render={(props) => <Home {...props} {...routeProps} />} />
 
-      <Route
-        path="/question/:id"
-        render={(props) => <Question {...props} {...routeProps} />}
-      />
-      <Route
-        path="/submit/question"
-        render={(props) => <SubmitQuestion {...props} {...routeProps} />}
-      />
+      <Route path="/question/:id" render={(props) => <Question {...props} {...routeProps} />} />
+      <Route path="/submit/question" render={(props) => <SubmitQuestion {...props} {...routeProps} />} />
 
-      <Route
-        path="/user/profile/update"
-        render={(props) => <UpdateProfile {...props} {...routeProps} />}
-      />
+      <Route path="/user/profile/update" render={(props) => <UpdateProfile {...props} {...routeProps} />} />
+
+      <Route path="/balancegame" render={(props) => <BalanceGame {...props} {...routeProps} />} />
       <Redirect from="*" to="/" />
     </Switch>
   );
